@@ -17,7 +17,7 @@ def solve():
         return res
 
     paths = set()
-    with open("../Input.txt", "r") as f:
+    with open("input.txt", "r") as f:
         for l in f.readlines():
             l = l.rstrip().split()
             if (l[0] == '$'):
