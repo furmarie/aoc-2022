@@ -3,32 +3,32 @@ def solve_1():
         mat = [l.rstrip() for l in f.readlines()]
         mat = [list(map(int, x)) for x in mat]
 
-        n, m = len(mat), len(mat[0])
-        vis = [[0 for _ in range(m)] for _ in range(n)]
+    n, m = len(mat), len(mat[0])
+    vis = [[0 for _ in range(m)] for _ in range(n)]
 
-        for i in range(n):
-            mx = -1
-            for j in range(m):
-                if mat[i][j] > mx:
-                    vis[i][j] = 1
-                    mx = mat[i][j]
-            mx = -1
-            for j in range(m - 1, -1, -1):
-                if mat[i][j] > mx:
-                    vis[i][j] = 1
-                    mx = mat[i][j]               
-            
+    for i in range(n):
+        mx = -1
         for j in range(m):
-            mx = -1
-            for i in range(n):
-                if mat[i][j] > mx:
-                    vis[i][j] = 1
-                    mx = mat[i][j]
-            mx = -1
-            for i in range(n - 1, -1, -1):
-                if mat[i][j] > mx:
-                    vis[i][j] = 1
-                    mx = mat[i][j]       
+            if mat[i][j] > mx:
+                vis[i][j] = 1
+                mx = mat[i][j]
+        mx = -1
+        for j in range(m - 1, -1, -1):
+            if mat[i][j] > mx:
+                vis[i][j] = 1
+                mx = mat[i][j]               
+        
+    for j in range(m):
+        mx = -1
+        for i in range(n):
+            if mat[i][j] > mx:
+                vis[i][j] = 1
+                mx = mat[i][j]
+        mx = -1
+        for i in range(n - 1, -1, -1):
+            if mat[i][j] > mx:
+                vis[i][j] = 1
+                mx = mat[i][j]       
 
     print("Part 1: ", sum(sum(x) for x in vis))
 
@@ -41,7 +41,6 @@ def solve_2():
         mat = [list(map(int, x)) for x in mat]
 
     n, m = len(mat), len(mat[0])
-    vis = [[0 for _ in range(m)] for _ in range(n)]    
 
     def go(x, y, dx, dy):
         res = 0
@@ -53,9 +52,7 @@ def solve_2():
             nx = nx + dx
             ny = ny + dy
 
-        return res
-
-                
+        return res                
 
     for i in range(1, n - 1):
         for j in range(1, m - 1):
