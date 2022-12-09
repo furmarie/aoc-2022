@@ -37,6 +37,7 @@ def solve():
     ans1 = 0
     ans2 = 1e9
     total_space = 70_000_000
+    max_used_space = total_space - 30_000_000
     used_space = get_size("/")
 
     for dir in paths:
@@ -44,11 +45,11 @@ def solve():
         if(curr_size <= 100_000):
             ans1 += curr_size
 
-        if used_space - curr_size <= 40_000_000:
+        if used_space - curr_size <= max_used_space:
             ans2 = min(ans2, curr_size)
 
     print("Part 1: ", ans1)
-    print("Part 2: " , ans2)
+    print("Part 2: ", ans2)
 
 
 def main():
