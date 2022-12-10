@@ -2,7 +2,7 @@ def solve(num_tails):
     with open("input.txt", "r") as f:
         ans = set()
         num_tails = num_tails
-        tails_pos = [(10000, 10000) for _ in range(num_tails + 1)]
+        tails_pos = [(0, 0) for _ in range(num_tails + 1)]
 
         def dist(a, b):
             return (pow(b[0] - a[0], 2) + pow(b[1] - a[1], 2))
