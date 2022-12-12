@@ -32,12 +32,12 @@ def solve():
     while q:
         x, y = q.popleft()
 
+        if ans2 == -1 and mat[x][y] == 0:
+            ans2 = vis[x][y]
+            
         if (x, y) == (start_x, start_y):
             ans1 = vis[x][y]
             break
-
-        if ans2 == -1 and mat[x][y] == 0:
-            ans2 = vis[x][y]
 
         dx = [0, 1, 0, -1]
         dy = [1, 0, -1, 0]
