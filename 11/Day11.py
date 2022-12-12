@@ -1,8 +1,10 @@
 import sys
+from collections import deque
+from typing import List
 
 class Monkey:
     def __init__(self, items, operation, test_num, true_throw, false_throw):
-        self.items = items
+        self.items = deque(items)
         self.op = operation
         self.test_num = test_num
         self.true_throw = true_throw
@@ -12,9 +14,8 @@ class Monkey:
     def get_throw(self, mod, div_factor):
         while self.items:
             self.num_inspected += 1
-            curr_item = self.items.pop(0)
-            old = curr_item
-            new_val = eval(self.op) % mod
+            curr_item = self.items.popleft()
+            new_val = self.op(curr_item) % mod
             new_val //= div_factor
 
             if new_val % self.test_num == 0:
@@ -28,12 +29,12 @@ def get_line():
 def solve(num_rounds, div_factor):
     sys.stdin = open("input.txt", "r")
     
-    monkeys = []
+    monkeys : List[Monkey] = []
     mod = 1
     for _ in range(8):
         monkey_id = int(get_line()[-2])
         items = eval("[" + get_line().split(':')[-1] + "]")
-        operation = get_line().split("=")[-1]
+        operation = eval("lambda old: " + get_line().split("=")[-1])
         test_num = int(get_line().split()[-1])
         true_throw = int(get_line().split()[-1])
         false_throw = int(get_line().split()[-1])
@@ -51,7 +52,7 @@ def solve(num_rounds, div_factor):
             for item_val, to_id in monkey.get_throw(mod=mod, div_factor=div_factor):
                 monkeys[to_id].items.append(item_val)
 
-    monkeys.sort(key=lambda monkey : monkey.num_inspected)
+    monkeys.sort(key=lambda monkey: monkey.num_inspected)
     
     return monkeys[-1].num_inspected * monkeys[-2].num_inspected
         
