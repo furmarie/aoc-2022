@@ -8,7 +8,7 @@ def solve_1():
 
     ans1 = 0
 
-    def go(a, b):
+    def check_order(a, b):
         if isinstance(a, int) and isinstance(b, list):
             a = [a]
 
@@ -19,11 +19,9 @@ def solve_1():
         while a or b:
             val = 0
             if not b:
-                val = -1
-                break
+                return -1
             if not a:
-                val = 1
-                break
+                return 1
 
             a1 = a.pop(0)
             b1 = b.pop(0)
@@ -37,25 +35,25 @@ def solve_1():
                     continue
 
             if val == 0:
-                val = go(a1, b1)
+                val = check_order(a1, b1)
+
             if val == 1:
                 return 1
             if val == -1:
                 return -1
+
         return val
 
     def cmp(a, b):
         _a = copy.deepcopy(a)
         _b = copy.deepcopy(b)
-        val = go(_a, _b)
-        if val == 1:
-            return -1
-        return 1
+        val = check_order(_a, _b)
+        return -1 if val == 1 else 1
 
     for i in range(0, len(lines), 3):
         a = eval(lines[i])
         b = eval(lines[i + 1])
-        if go(a, b) == 1:
+        if check_order(a, b) == 1:
             ans1 += ((i + 3) // 3)
 
     part_2 = [[[2]], [[6]]]
