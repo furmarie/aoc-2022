@@ -23,7 +23,7 @@ def solve_1():
 def solve_2():
     mx = 4_000_000
     y_ranges = [[] for _ in range(mx + 1)]
-    with open("input.txt", "r") as f:
+    with open("sample.txt", "r") as f:
         for l in f.readlines():
             sx, sy, bx, by = map(int, re.findall(r'(?<=\=)(.*?)(?=,|\:|\n)', l))
 
@@ -45,22 +45,19 @@ def solve_2():
                 continue
             xs.sort()
             
-            last_i = 0
-            for i in range(1, len(xs)):
-                if xs[last_i][1] >= xs[i][0] - 1:
-                    xs[last_i][1] = max(xs[last_i][1], xs[i][1])
-                else:
-                    last_i += 1
-                    xs[last_i] = xs[i]
+            if xs[0][0] != 0:
+                ans_x = 0
+                break
 
-            if last_i < 1:
-                if xs[0][0] > 0:
-                    ans_x = 0
-                elif xs[0][1] < mx:
-                    ans_x = mx
-            else:
-                ans_x = xs[0][1] + 1
-                ans_y = ans_y
+            last_e = xs[0][1]
+            for i in range(1, len(xs)):
+                if last_e >= xs[i][0] - 1:
+                    last_e = max(last_e, xs[i][1])
+                else:
+                    break
+
+            if last_e != mx:
+                ans_x = last_e + 1
                 break
         
         return 4_000_000 * ans_x + ans_y
